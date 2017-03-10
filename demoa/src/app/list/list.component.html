@@ -8,8 +8,7 @@
 
         <li *ngFor="let item of appData$ | async; let i = index;" #appItems (click)="onSelect($event, item)">
             <button id="btn-item-{{item.id}}">
-           <span class="w3-badge w3-green">{{i+1}}</span>
-          {{item.title}} </button>
+           <span class="w3-badge w3-green spacer-right">{{i+1}}</span>{{item.title}} </button>
         </li>
 
     </ul>

@@ -1,5 +1,13 @@
 $defaultBgColor: gray;
 .container {
+    button {
+        background-color: transparent;
+        border: none;
+        text-decoration: underline;
+    }
+    .spacer-right {
+        margin-right: 5px
+    }
     ul {
         list-style: none;
     }
