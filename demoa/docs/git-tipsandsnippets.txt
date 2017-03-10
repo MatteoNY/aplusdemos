@@ -1,0 +1,15 @@
+GIT tips:
+
+
+git checkout chapter1
+
+git add .
+git commit -m 'comment'
+
+git pull
+git push
+
+git config credential.helper 'cache --timeout=300'
+
+bash tree:
+ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'

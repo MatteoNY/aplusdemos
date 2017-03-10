@@ -1,0 +1,260 @@
+Prepared by: M.Carbone at NuTravel March 10, 2017
+
+Session #1 tasks: Create service and list view
+
+
+Step 1: Interface for Model
+ ng g interface  /core/services/app-data.interface
+ Note: the -cli generates the file with the name: "app-data.ts" this will work but its not following best practices for style*.
+ rename the app-data.ts to app-data.interface.ts 
+  ** It's a best practice style to use .service .interface etc to describe the file.
+
+--- edit interface .ts file and use copy, paste and save -------------------------------------------- 
+
+export interface AppData {
+  id: number;
+  albumId: number;
+  title: string;
+  url?: string;
+  thumbnailUrl?: string;
+}
+
+-----------------------------------------------------------------------------------------------
+
+Step 2:
+ng g service /core/services/app.service
+
+Note: the angular-cli generates the service but warns that it did not provide we will need to add it.
+The angular-cli does not know if we want it to be global or within a specific module. 
+
+Step 3: 
+Open Code editor and update in this case the "app.module.ts" file as we are using our
+new service in a global instance. 
+
+--- edit: app.module.ts file and use copy, paste and save -------------------------------------------- 
+Add the following:
+
+import { AppService } from './core/services/app.service';
+
+add AppService to the providers:
+providers: [AppService]
+
+restart: ng serve
+<!-- save: app.module.ts -->
+should compile without errors 
+
+
+--- edit: services.ts file and use copy, paste and save -------------------------------------------- 
+<!-- copy and paste this code into your  -->
+
+
+import { Injectable } from '@angular/core';
+import { Http, URLSearchParams, Response, Headers, RequestOptions, Jsonp } from "@angular/http";
+ 
+
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/take';
+import 'rxjs/add/operator/filter';
+
+import { AppData } from './app-data.interface';
+
+@Injectable()
+export class AppService {
+
+  public API_KEY: string = '99';
+  public API_URL: string = 'https://jsonplaceholder.typicode.com/photos';
+  public params: string;
+  public requestUrl: string;
+   
+  constructor(public http: Http) {
+    this.params = `?albumId=${this.API_KEY}`;
+    this.requestUrl = this.API_URL + this.params;
+
+  }
+
+  fetch(): Observable<AppData[]> {
+   // console.log("^^^^ fetch???");
+    return this.http.get(this.requestUrl)
+      // .do(c => console.log(c.json()))
+      .map((res: Response) => res.json() || [])
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+} // -class
+
+
+
+-----------------------------------------------------------------------------------------------
+STEP 4: GENERATE LIST VIEW
+ng g component list
+
+Note: the Angular-cli will automatically generate the list component and add it to your app.module as an import and added to declarations. 
+In other cases you may want to add this to a specific module, for example, a seatmap may have a seats.module.ts file and the component belongs only to the seatmap. It's easy you can remove it from the 
+app.module and add it to the seats.module file. It should be noted that the seats.module would be added to your app.module so all of the seatmap components are together in a module. It's one of the benefits of using modules. 
+
+--- edit: list.component.ts file and use copy, paste and save -------------------------------------------- 
+<!-- copy and paste this code into your  -->
+
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+
+import { AppService } from '../core/services/app.service';
+import { AppData } from '../core/services/app-data.interface';
+
+
+@Component({
+  selector: 'app-list',
+  templateUrl: './list.component.html',
+  styleUrls: ['./list.component.scss']
+})
+export class ListComponent implements OnInit {
+
+  public appData$:Observable<AppData[]>;
+  private selectItem:any = '';
+
+  constructor(private appService: AppService) { }
+
+  ngOnInit() {
+
+    console.log ("init...");
+    this.appData$ = this.appService.fetch();
+
+  }
+
+  onSelect(e, item:any) {
+    console.log ("item got click", item);
+    this.selectItem = item;
+  }
+
+}
+
+ 
+-----------------------------------------------------------------------------------------------
+STEP 5: Rename .css to .scss
+The code you pasted-in is using .scss:
+Rename: list.component.css to list.component.scss
+
+Note: in the @Component annotations the styleUrls: is using .scss
+  styleUrls: ['./list.component.scss']
+
+Save and compile you should not get any errors this time.
+
+-----------------------------------------------------------------------------------------------
+STEP 6: WHAT YOU SEE IS WHAT YOU GET? NOTHING UNTIL YOU ADD THE APP SELECTOR FOR THE LIST COMPONENT.
+IN THIS CASE WE WILL KEEP IT SIMPLE AND ADD IT TO OUR APP.COMPONENT.HTML FILE. IN OTHER CASES YOU COULD USE THE ROUTER TO PRESENT THE VIEW.
+
+ADD THIS CODE TO YOUR APP.COMPONENT.HTML:
+<h1>
+    {{title}}
+</h1>
+
+<app-list></app-list>
+
+-----------------------------------------------------------------------------------------------
+STEP 7: APP.COMPONENT.TS (MAIN APP)
+Modify the title to
+    title = 'WELCOME (app.component)';
+
+   This way you can visualize that the list component is a child of the app.component in this case.
+
+
+-----------------------------------------------------------------------------------------------
+
+NOTE: WE ADDED A CLICK AND FUNCTION IN THE LIST.COMPONENT, the onSelect() function. 
+
+-----------------------------------------------------------------------------------------------
+STEP 8: ADD SOME TWEAKS TO OUR .SCSS FILE
+
+ // Notice comment in .scss is //
+ // global body rule
+ body {
+     margin: 2em;
+ }
+ 
+ // vars for color etc.
+ $defaultBgColor: red;
+ // containers rules specific.
+ .container {
+     button {
+         background-color: transparent;
+         border: none;
+         text-decoration: underline;
+     }
+     button.selected {
+         color: $defaultBgColor;
+         text-decoration: none;
+     }
+     .spacer-right {
+         margin-right: 5px
+     }
+     ul {
+         list-style: none;
+     }
+     .w3-green,
+     .w3-hover-green:hover {
+         color: #fff!important;
+         background-color: #4CAF50!important;
+     }
+     .w3-badge {
+         border-radius: 50%;
+     }
+     .w3-badge,
+     .w3-tag,
+     .w3-sign {
+         background-color: #000;
+         color: #fff;
+         display: inline-block;
+         padding-left: 8px;
+         padding-right: 8px;
+         text-align: center;
+     }
+ }
+
+
+STEP 9: GENERATING A PIPE TO CAPTALIZE THE TEXT
+ng g pipe /core/pipes/capitalize.pipe
+
+After the -cli generates the pipe it will automatically add it to your app.module as mentioned before 
+you can move this to your own module if needed. 
+
+
+--- edit: list.component.ts file and use copy, paste and save -------------------------------------------- 
+<!-- copy and paste this code into your  -->
+
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({ name: 'capitalize' })
+export class CapitalizePipe implements PipeTransform {
+ 
+  transform(value: any) {
+      if (value) {
+        return value.charAt(0).toUpperCase() + value.slice(1);
+      }
+      return value;
+  }
+}
+
+
+-----------------------------------------------------------------------------------------------
+
+STEP 10: UPDATING THE LIST.COMPONENT WITH DYNAMIC CLASSES AND ARIA ATTRIBUTES:
+
+<article class="container">
+    <h1 i18n>APP DATA (list/list.component.html)</h1>
+    <span>Currently Selected:<strong> {{selectItem.title | capitalize }}</strong></span>
+    <ul>
+        <li *ngFor="let item of appData$ | async; let i = index;" #appItems (click)="onSelect($event, item)">
+            <button id="btn-item-{{item.id}}" [class.selected]="item.id === selectItem.id">
+           <span class="w3-badge w3-green spacer-right">{{i+1}}</span>{{item.title}} 
+          <span class="sr-only" role="alert" aria-live="polite" 
+                [attr.aria-label]="item.title"> </span>
+           </button>
+        </li>
+    </ul>
+</article>
+
+-----------------------------------------------------------------------------------------------
