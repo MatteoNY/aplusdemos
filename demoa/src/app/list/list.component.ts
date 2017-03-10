@@ -5,7 +5,6 @@ import { AppService } from '../core/model/app.service';
 import { AppData } from '../core/model/app-data.interface';
 
 
-
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -14,6 +13,7 @@ import { AppData } from '../core/model/app-data.interface';
 export class ListComponent implements OnInit {
 
   public appData$:Observable<AppData[]>;
+  private selectItem:any = '';
 
   constructor(private appService: AppService) { }
 
@@ -22,6 +22,11 @@ export class ListComponent implements OnInit {
     console.log ("init...");
     this.appData$ = this.appService.fetch();
 
+  }
+
+  onSelect(e, item:any) {
+    console.log ("item got click", item);
+    this.selectItem = item;
   }
 
 }
