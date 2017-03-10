@@ -14,9 +14,9 @@
 .c9/
 *.launch
 .settings/
-*.sublime-workspace
 
 # IDE - VSCode
+.vscode
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
@@ -39,3 +39,12 @@ testem.log
 #System Files
 .DS_Store
 Thumbs.db
+
+# Files created by the template compiler
+**/*.ngfactory.ts
+**/*.css.ts
+**/*.css.shim.ts
+
+# Don't check in secret files
+*secret.js
+desktop.ini
