@@ -1,2 +1,2 @@
 # aplusdemos
-Angular++ Demos
+Angular+Demos
