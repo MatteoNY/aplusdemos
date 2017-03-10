@@ -1,32 +1,44 @@
-$defaultBgColor: gray;
-.container {
-    button {
-        background-color: transparent;
-        border: none;
-        text-decoration: underline;
-    }
-    .spacer-right {
-        margin-right: 5px
-    }
-    ul {
-        list-style: none;
-    }
-    .w3-green,
-    .w3-hover-green:hover {
-        color: #fff!important;
-        background-color: #4CAF50!important;
-    }
-    .w3-badge {
-        border-radius: 50%;
-    }
-    .w3-badge,
-    .w3-tag,
-    .w3-sign {
-        background-color: #000;
-        color: #fff;
-        display: inline-block;
-        padding-left: 8px;
-        padding-right: 8px;
-        text-align: center;
-    }
-}
+ // Notice comment in .scss is //
+ // global body rule
+ body {
+     margin: 2em;
+ }
+ 
+ // vars for color etc.
+ $defaultBgColor: red;
+ // containers rules specific.
+ .container {
+     button {
+         background-color: transparent;
+         border: none;
+         text-decoration: underline;
+     }
+     button.selected {
+         color: $defaultBgColor;
+         text-decoration: none;
+     }
+     .spacer-right {
+         margin-right: 5px
+     }
+     ul {
+         list-style: none;
+     }
+     .w3-green,
+     .w3-hover-green:hover {
+         color: #fff!important;
+         background-color: #4CAF50!important;
+     }
+     .w3-badge {
+         border-radius: 50%;
+     }
+     .w3-badge,
+     .w3-tag,
+     .w3-sign {
+         background-color: #000;
+         color: #fff;
+         display: inline-block;
+         padding-left: 8px;
+         padding-right: 8px;
+         text-align: center;
+     }
+ }

@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { AppService } from '../core/model/app.service';
 import { AppData } from '../core/model/app-data.interface';
-
+import { CapitalizePipe } from '../core/pipes/capitalize.pipe'; 
 
 @Component({
   selector: 'app-list',

@@ -7,11 +7,13 @@ import { AppComponent } from './app.component';
 import { ListComponent } from './list/list.component';
 
 import { AppService } from './core/model/app.service';
+import { CapitalizePipe } from './core/pipes/capitalize.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ListComponent
+    ListComponent,
+    CapitalizePipe
   ],
   imports: [
     BrowserModule,
@@ -19,6 +21,8 @@ import { AppService } from './core/model/app.service';
     HttpModule
   ],
   providers: [ AppService ],
-  bootstrap: [AppComponent]
+  bootstrap: [ AppComponent] ,
+  entryComponents: [],
+  exports: []
 })
 export class AppModule { }

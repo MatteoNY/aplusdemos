@@ -2,15 +2,48 @@
 
 
     <h1 i18n>APP DATA (list/list.component.html)</h1>
-    <span>Currently Selected:<strong> {{selectItem.title}}</strong></span>
+    <span>Currently Selected:<strong> {{selectItem.title | capitalize }}</strong></span>
     <ul>
 
 
         <li *ngFor="let item of appData$ | async; let i = index;" #appItems (click)="onSelect($event, item)">
-            <button id="btn-item-{{item.id}}">
-           <span class="w3-badge w3-green spacer-right">{{i+1}}</span>{{item.title}} </button>
+            <button id="btn-item-{{item.id}}" [class.selected]="item.id === selectItem.id">
+         
+           <span class="w3-badge w3-green spacer-right">{{i+1}}</span>{{item.title}} 
+          <span class="sr-only" role="alert" aria-live="polite" 
+                [attr.aria-label]="item.title"> </span>
+           
+           </button>
         </li>
 
     </ul>
 
+
+
+</article>
+<hr/>
+<article>
+
+    <h1>WHAT WE'VE LEARNED : SUMMARY:</h1>
+
+    <div>
+        <p>
+
+            <ol>
+                <li>
+                    Created a pipe that capitalizes using ng g pipe. <br/> You can use ng generate or manually add to the .module <br/> that will be using the pipe or add it to the (main) app.module file for global use.
+                </li>
+                <li>
+                    Updated list.component.html with [class.selected] = true | false
+                </li>
+                <li>
+                    Updated the component .scss file with button.select rule
+                </li>
+                <li>
+                    BONUS: added [attr.aria-label] = "item.title" this is for WCAG coding.
+                </li>
+            </ol>
+
+    </div>
+    <br/><br/><br/>
 </article>
