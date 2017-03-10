@@ -1,3 +1,16 @@
-<p>
-  list works!
-</p>
+<article class="container">
+
+
+    <h1 i18n>APP DATA (list/list.component.html)</h1>
+    <ul>
+
+
+        <li *ngFor="let item of appData$ | async; let i = index;" #appItems (click)="onSelect($event, item)">
+            <button id="btn-item-{{item.id}}">
+           <span class="w3-badge w3-green">{{i+1}}</span>
+          {{item.title}} </button>
+        </li>
+
+    </ul>
+
+</article>
