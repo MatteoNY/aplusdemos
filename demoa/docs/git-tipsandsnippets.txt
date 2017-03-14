@@ -1,7 +1,10 @@
 GIT tips:
 
+git clone (from git)
 
-git checkout chapter1
+git status
+git checkout demob
+git checkout democ
 
 git add .
 git commit -m 'comment'

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-import { AppService } from '../core/model/app.service';
-import { AppData } from '../core/model/app-data.interface';
+import { AppService } from '../core/services/app.service';
+import { AppData } from '../core/services/app-data.interface';
 import { CapitalizePipe } from '../core/pipes/capitalize.pipe'; 
 
 @Component({

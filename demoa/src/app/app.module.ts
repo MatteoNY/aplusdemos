@@ -6,7 +6,7 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { ListComponent } from './list/list.component';
 
-import { AppService } from './core/model/app.service';
+import { AppService } from './core/services/app.service';
 import { CapitalizePipe } from './core/pipes/capitalize.pipe';
 
 @NgModule({
