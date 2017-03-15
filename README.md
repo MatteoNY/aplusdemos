@@ -17,6 +17,6 @@ Requirements:
 Usage: after initial git clone use: 
 git checkout debmob and git checkout democ for final version.
 
-<a href="http://journeysoft.com/demos/2017a2democ/">Demo</a>
+<a href="http://journeysoft.com/demos/2017a2democ/">Demo (final version democ)</a>
 
 
