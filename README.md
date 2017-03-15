@@ -1,7 +1,6 @@
 # aplusdemos
-Angular+Demos 
 
-Angular+Demos 
+<h2>Angular+Demos</h2> 
 
 Purpose: Angular 2.x team training exercise.
 The intended purpose of the code in this repository was for a team jump-start training 
